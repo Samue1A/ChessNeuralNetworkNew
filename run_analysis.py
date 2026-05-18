@@ -427,47 +427,55 @@ def parse_migration(mig_files: dict) -> pd.DataFrame:
 
 
 def parse_population(path: Path) -> pd.DataFrame:
-    """ONS mid-year estimates XLSX → population by LA-year.
-
-    Robust to varying column-name formats:
-      integer 2013, string '2013', 'Mid-2013', datetime(2013,...), etc.
-    """
+    """ONS mid-year estimates XLSX → population by LA-year."""
     xl = pd.ExcelFile(path)
     target = next((s for s in xl.sheet_names
                    if "persons" in s.lower() or "mye" in s.lower()),
                   xl.sheet_names[0])
+    print(f"    Population: sheet='{target}'")
 
-    df = la_col = None
-    # Start from 0: MYEB files have headers in row 0 with no title rows above.
-    for skip in range(0, 16):
-        raw = pd.read_excel(path, sheet_name=target, skiprows=range(0, skip))
-        la_col = next(
-            (c for c in raw.columns
-             if raw[c].dropna().astype(str).str.match(r"^[EWSK]\d{8}$").mean() > 0.4),
-            None,
+    # Phase 1: read first 20 rows raw (no header) to locate the header row.
+    # The header row is the first row that contains a 4-digit year value.
+    probe = pd.read_excel(path, sheet_name=target,
+                          header=None, nrows=20, dtype=str).fillna("")
+    header_row = 0
+    for i in range(len(probe)):
+        if any(re.search(r"\b20[012]\d\b", str(v)) for v in probe.iloc[i]):
+            header_row = i
+            break
+    print(f"    Population: header at row {header_row}")
+
+    # Phase 2: read with that row as the column header.
+    df = pd.read_excel(path, sheet_name=target,
+                       skiprows=list(range(header_row)), header=0)
+
+    # Find the LA code column (values like E06000001).
+    la_col = next(
+        (c for c in df.columns
+         if df[c].dropna().astype(str).str.strip()
+                  .str.match(r"^[EWSK]\d{8}$").mean() > 0.3),
+        None,
+    )
+    if la_col is None:
+        raise ValueError(
+            f"Cannot find LA code column in sheet '{target}'. "
+            f"Columns: {[str(c) for c in df.columns[:20]]}"
         )
-        if la_col is not None:
-            df = raw; break
 
-    if df is None or la_col is None:
-        raise ValueError(f"Cannot find LA code column in population file. "
-                         f"Sheet tried: '{target}'")
-
-    # Find year columns: extract 4-digit year from any column-name format
-    year_map = {}  # year_int -> column_name
+    # Find year columns by extracting a 4-digit year from each column name.
+    year_map = {}
     for c in df.columns:
         m = re.search(r"\b(20[012]\d)\b", str(c))
         if m:
             yr = int(m.group(1))
             if YEAR_START <= yr <= YEAR_END + 2:
                 year_map[yr] = c
+    print(f"    Population: year columns found: {sorted(year_map)}")
 
     if not year_map:
-        # Diagnostic: show what columns were found
-        sample_cols = [str(c) for c in df.columns[:30]]
         raise ValueError(
-            f"No year columns found in population sheet '{target}'.\n"
-            f"  First 30 column names: {sample_cols}"
+            f"No year columns in sheet '{target}'. "
+            f"First 20 columns: {[str(c) for c in df.columns[:20]]}"
         )
 
     pieces = []
