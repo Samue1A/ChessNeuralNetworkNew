@@ -443,18 +443,22 @@ def parse_population(path: Path) -> pd.DataFrame:
                   xl.sheet_names[0])
     print(f"    Population: sheet='{target}'")
 
-    # Phase 1: read first 20 rows raw (no header) to locate the header row.
-    # Require >=5 cells that ARE purely a 4-digit year (e.g. 2013, 2014...).
-    # This avoids false-positives on title rows like "estimates (as of April 2023)".
+    # Phase 1: scan rows (no header) to find the one containing year column headers.
+    # Excel stores integers as floats, so years appear as "2011.0", "2012.0" etc.
+    # Count cells whose float value is a whole number between 2000-2030.
     probe = pd.read_excel(path, sheet_name=target,
-                          header=None, nrows=20, dtype=str).fillna("")
+                          header=None, nrows=100, dtype=str).fillna("")
     header_row = 0
     for i in range(len(probe)):
-        pure_years = sum(
-            1 for v in probe.iloc[i]
-            if re.fullmatch(r"20[012]\d", str(v).strip())
-        )
-        if pure_years >= 5:
+        year_count = 0
+        for v in probe.iloc[i]:
+            try:
+                f = float(str(v).strip())
+                if 2000 <= f <= 2030 and f == int(f):
+                    year_count += 1
+            except (ValueError, TypeError):
+                pass
+        if year_count >= 5:
             header_row = i
             break
     print(f"    Population: header at row {header_row}")
