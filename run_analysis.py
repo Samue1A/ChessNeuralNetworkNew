@@ -489,7 +489,7 @@ def parse_population(path: Path) -> pd.DataFrame:
     # Find year columns by extracting a 4-digit year from each column name.
     year_map = {}
     for c in df.columns:
-        m = re.search(r"\b(20[012]\d)\b", str(c))
+        m = re.search(r"(20[012]\d)", str(c))
         if m:
             yr = int(m.group(1))
             if YEAR_START <= yr <= YEAR_END + 2:
@@ -605,6 +605,11 @@ def make_plots(panel: pd.DataFrame):
 
     for ax, (y_col, ylabel) in zip(axes, outcomes):
         d = panel[["log_house_price", y_col, "la_code", "year"]].dropna().copy()
+        if len(d) < 10:
+            ax.text(0.5, 0.5, f"Insufficient data\n({len(d)} obs after dropna)",
+                    ha="center", va="center", transform=ax.transAxes)
+            ax.set_title(ylabel)
+            continue
         for col in ["log_house_price", y_col]:
             um = d.groupby("la_code")[col].transform("mean")
             tm = d.groupby("year")[col].transform("mean")
