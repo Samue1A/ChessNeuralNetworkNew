@@ -100,14 +100,52 @@ URLS = {
         ),
     },
 
-    # ONS Internal Migration matrices (LA-to-LA), year ending June
-    "migration_template": (
-        "https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/"
-        "populationandmigration/migrationwithintheuk/datasets/"
-        "matricesofinternalmigrationmovesbetweenlocalauthoritiesandregions"
-        "includingthecountriesofwalesscotlandandnorthernireland/yearending"
-        "june{year}/laandregionsquaresukyearendingjune{year}.zip"
-    ),
+    # ONS Internal Migration matrices (LA-to-LA), year ending June.
+    # Filenames changed between releases: ZIPs for 2013-2016, XLSX for 2017+.
+    "migration_urls": {
+        2013: (
+            "https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/"
+            "populationandmigration/migrationwithintheuk/datasets/"
+            "matricesofinternalmigrationmovesbetweenlocalauthoritiesandregions"
+            "includingthecountriesofwalesscotlandandnorthernireland/"
+            "yearendingjune2013/laandregionsquarematrices2013.zip"
+        ),
+        2014: (
+            "https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/"
+            "populationandmigration/migrationwithintheuk/datasets/"
+            "matricesofinternalmigrationmovesbetweenlocalauthoritiesandregions"
+            "includingthecountriesofwalesscotlandandnorthernireland/"
+            "yearendingjune2014/laandregionsquarematrices2014.zip"
+        ),
+        2015: (
+            "https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/"
+            "populationandmigration/migrationwithintheuk/datasets/"
+            "matricesofinternalmigrationmovesbetweenlocalauthoritiesandregions"
+            "includingthecountriesofwalesscotlandandnorthernireland/"
+            "yearendingjune2015/laandregionsquarematrices2015.zip"
+        ),
+        2016: (
+            "https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/"
+            "populationandmigration/migrationwithintheuk/datasets/"
+            "matricesofinternalmigrationmovesbetweenlocalauthoritiesandregions"
+            "includingthecountriesofwalesscotlandandnorthernireland/"
+            "yearendingjune2016/laandregionsquarematrices2016.zip"
+        ),
+        2017: (
+            "https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/"
+            "populationandmigration/migrationwithintheuk/datasets/"
+            "matricesofinternalmigrationmovesbetweenlocalauthoritiesandregions"
+            "includingthecountriesofwalesscotlandandnorthernireland/"
+            "yearendingjune2017/laandregionalsquarematrices2017.xlsx"
+        ),
+        2018: (
+            "https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/"
+            "populationandmigration/migrationwithintheuk/datasets/"
+            "matricesofinternalmigrationmovesbetweenlocalauthoritiesandregions"
+            "includingthecountriesofwalesscotlandandnorthernireland/"
+            "yearendingjune2018/laandregionalsquarematrices2018newboundaries.xlsx"
+        ),
+    },
 
     # ONS Mid-year population estimates 2011-2024 by LA
     "population": (
@@ -197,14 +235,14 @@ def download_all():
         time.sleep(1)
     results["rents"] = rent_files if rent_files else None
 
-    # Migration - one ZIP per year (year ending June)
+    # Migration - one file per year; format varies (ZIP 2013-2016, XLSX 2017-2018)
     migration_files = {}
-    for year in range(YEAR_START, YEAR_END + 1):
-        url = URLS["migration_template"].format(year=year)
-        dest = DATA_DIR / f"migration_{year}.zip"
+    for year, url in sorted(URLS["migration_urls"].items()):
+        ext = ".xlsx" if url.endswith(".xlsx") else ".zip"
+        dest = DATA_DIR / f"migration_{year}{ext}"
         if download(url, dest, f"Migration {year}"):
             migration_files[year] = dest
-        time.sleep(3)  # ONS rate-limits heavily; be polite
+        time.sleep(2)  # be polite to ONS servers
     results["migration"] = migration_files if migration_files else None
 
     return results
@@ -458,38 +496,52 @@ def _parse_one_rent_file(path: Path, year: int) -> pd.DataFrame:
     return best
 
 
-def parse_migration(zip_paths: dict) -> pd.DataFrame:
-    """Migration zips → annual in-/out-migration totals per LA."""
+def parse_migration(mig_files: dict) -> pd.DataFrame:
+    """Migration files → annual in-/out-migration totals per LA.
+
+    Handles ZIP+CSV (years 2013-2016) and XLSX (years 2017-2018).
+    Both formats are square origin×destination matrices with LA codes
+    as row and column labels.
+    """
     import zipfile
     pieces = []
-    for year, zpath in zip_paths.items():
+    for year, fpath in sorted(mig_files.items()):
+        mat = None
         try:
-            with zipfile.ZipFile(zpath) as zf:
-                csv_names = [n for n in zf.namelist()
-                             if n.lower().endswith(".csv")
-                             and "la" in n.lower()]
-                if not csv_names:
+            if fpath.suffix.lower() == ".zip":
+                with zipfile.ZipFile(fpath) as zf:
                     csv_names = [n for n in zf.namelist()
-                                 if n.lower().endswith(".csv")]
-                if not csv_names:
-                    print(f"    Migration {year}: no CSV inside ZIP")
-                    continue
-                with zf.open(csv_names[0]) as f:
-                    mat = pd.read_csv(f, index_col=0)
+                                 if n.lower().endswith(".csv")
+                                 and "la" in n.lower()]
+                    if not csv_names:
+                        csv_names = [n for n in zf.namelist()
+                                     if n.lower().endswith(".csv")]
+                    if not csv_names:
+                        print(f"    Migration {year}: no CSV inside ZIP")
+                        continue
+                    with zf.open(csv_names[0]) as f:
+                        mat = pd.read_csv(f, index_col=0)
+            else:
+                mat = pd.read_excel(fpath, index_col=0, header=0)
         except Exception as exc:
-            print(f"    Migration {year}: error reading ZIP: {exc}")
+            print(f"    Migration {year}: error reading file: {exc}")
             continue
 
+        if mat is None or mat.empty:
+            continue
+
+        mat = mat.apply(pd.to_numeric, errors="coerce").fillna(0)
         np.fill_diagonal(mat.values, 0)
         out_flow = mat.sum(axis=1)
-        in_flow = mat.sum(axis=0)
+        in_flow  = mat.sum(axis=0)
         sub = pd.DataFrame({
             "la_code": mat.index,
             "year": year,
-            "inflow": in_flow.reindex(mat.index).values,
+            "inflow":  in_flow.reindex(mat.index).values,
             "outflow": out_flow.values,
         })
         pieces.append(sub)
+        print(f"    Migration {year}: {len(sub)} LAs")
 
     if not pieces:
         return pd.DataFrame(columns=["la_code", "year", "inflow", "outflow"])
@@ -686,11 +738,15 @@ def main():
     # ---- Download ----
     files = download_all()
 
-    missing = [k for k, v in files.items() if not v]
+    # Migration is optional: if it fails we skip the net-migration regression.
+    REQUIRED = {"ashe", "hpi", "rents", "population"}
+    missing = [k for k in REQUIRED if not files.get(k)]
     if missing:
-        print(f"\nFailed to download: {missing}")
-        print("See URLs/errors printed above. Download manually into ./data/ and re-run.")
+        print(f"\nFailed to download required datasets: {missing}")
+        print("See URLs/errors above. Download manually into ./data/ and re-run.")
         sys.exit(1)
+    if not files.get("migration"):
+        print("\n  Note: migration files unavailable — net-migration regression will be skipped.")
 
     # ---- Parse ----
     print("\n=== STEP 2: PARSING ===")
