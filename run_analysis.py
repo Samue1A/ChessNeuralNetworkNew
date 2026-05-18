@@ -438,7 +438,8 @@ def parse_population(path: Path) -> pd.DataFrame:
                   xl.sheet_names[0])
 
     df = la_col = None
-    for skip in range(3, 14):
+    # Start from 0: MYEB files have headers in row 0 with no title rows above.
+    for skip in range(0, 16):
         raw = pd.read_excel(path, sheet_name=target, skiprows=range(0, skip))
         la_col = next(
             (c for c in raw.columns
@@ -479,7 +480,10 @@ def parse_population(path: Path) -> pd.DataFrame:
         sub = sub[sub["la_code"].str.match(r"^[EWSK]\d{8}$")]
         pieces.append(sub)
 
-    return pd.concat(pieces, ignore_index=True) if pieces else pd.DataFrame()
+    result = pd.concat(pieces, ignore_index=True) if pieces else pd.DataFrame()
+    if not result.empty:
+        result = result.groupby(["la_code", "year"], as_index=False)["population"].sum()
+    return result
 
 
 # ---------------------------------------------------------------------------
