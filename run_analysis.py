@@ -355,20 +355,29 @@ def _parse_one_rent_file(path: Path, year: int) -> pd.DataFrame:
         except Exception:
             continue
         for skip in range(0, 9):
-            sub = raw.iloc[skip:].reset_index(drop=True)
-            sub.columns = sub.iloc[0].astype(str)
-            sub = sub.iloc[1:].reset_index(drop=True)
-            la_col = next((c for c in sub.columns
-                           if sub[c].astype(str).str.match(r"^[EW]\d{8}$").mean() > 0.25), None)
-            if la_col is None:
+            # Use positional iloc throughout to avoid duplicate-column-name issues
+            # (when two Excel columns share a name, sub[name] returns a DataFrame).
+            data = raw.iloc[skip + 1:].reset_index(drop=True)
+            header = raw.iloc[skip].astype(str).tolist()
+
+            la_idx = next(
+                (ci for ci in range(len(header))
+                 if data.iloc[:, ci].astype(str)
+                         .str.match(r"^[EW]\d{8}$").mean() > 0.25),
+                None,
+            )
+            if la_idx is None:
                 continue
-            med_col = next((c for c in sub.columns if "median" in str(c).lower()), None)
-            if med_col is None:
+            med_idx = next(
+                (ci for ci, h in enumerate(header) if "median" in h.lower()),
+                None,
+            )
+            if med_idx is None:
                 continue
             chunk = pd.DataFrame({
-                "la_code":     sub[la_col].astype(str).str.strip(),
+                "la_code":     data.iloc[:, la_idx].astype(str).str.strip(),
                 "year":        year,
-                "median_rent": pd.to_numeric(sub[med_col], errors="coerce"),
+                "median_rent": pd.to_numeric(data.iloc[:, med_idx], errors="coerce"),
             }).dropna()
             chunk = chunk[chunk["la_code"].str.match(r"^[EW]\d{8}$")]
             if len(chunk) >= 10:
@@ -435,12 +444,17 @@ def parse_population(path: Path) -> pd.DataFrame:
     print(f"    Population: sheet='{target}'")
 
     # Phase 1: read first 20 rows raw (no header) to locate the header row.
-    # The header row is the first row that contains a 4-digit year value.
+    # Require >=5 cells that ARE purely a 4-digit year (e.g. 2013, 2014...).
+    # This avoids false-positives on title rows like "estimates (as of April 2023)".
     probe = pd.read_excel(path, sheet_name=target,
                           header=None, nrows=20, dtype=str).fillna("")
     header_row = 0
     for i in range(len(probe)):
-        if any(re.search(r"\b20[012]\d\b", str(v)) for v in probe.iloc[i]):
+        pure_years = sum(
+            1 for v in probe.iloc[i]
+            if re.fullmatch(r"20[012]\d", str(v).strip())
+        )
+        if pure_years >= 5:
             header_row = i
             break
     print(f"    Population: header at row {header_row}")
