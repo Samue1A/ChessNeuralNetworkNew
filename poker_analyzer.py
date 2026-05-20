@@ -831,11 +831,16 @@ def print_console_summary(stats: Stats) -> None:
 
 
 def main() -> None:
+    try:
+        _default_path = str(Path(__file__).parent / "Poker.xlsx")
+    except NameError:
+        _default_path = "Poker.xlsx"
+
     p = argparse.ArgumentParser(description="Analyse a poker session log.")
     p.add_argument(
         "path",
         nargs="?",
-        default=str(Path(__file__).parent / "Poker.xlsx"),
+        default=_default_path,
         help="Path to the Poker .xlsx file (default: Poker.xlsx next to this script)",
     )
     p.add_argument("--outdir", default="poker_report",
