@@ -825,8 +825,8 @@ def print_console_summary(stats: Stats) -> None:
                   f"(real {_fmt_money(stats.recent[f'last_{n}_real'])})")
     best = stats.extremes["best_session"]
     worst = stats.extremes["worst_session"]
-    print(f"\n🏆 Best:  #{int(best['SessionNum'])} {best['Title']} -> {_fmt_money(best['Outcome'])}")
-    print(f"💀 Worst: #{int(worst['SessionNum'])} {worst['Title']} -> {_fmt_money(worst['Outcome'])}")
+    print(f"\nBest:  #{int(best['SessionNum'])} {best['Title']} -> {_fmt_money(best['Outcome'])}")
+    print(f"Worst: #{int(worst['SessionNum'])} {worst['Title']} -> {_fmt_money(worst['Outcome'])}")
     print("=" * 60)
 
 
