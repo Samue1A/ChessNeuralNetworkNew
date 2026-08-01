@@ -1,0 +1,90 @@
+[Event "NEW vs OLD"]
+[Site "Local"]
+[Date "2026.02.17"]
+[Round "1"]
+[White "NEW(d=5)"]
+[Black "OLD(d=5)"]
+[Result "1/2-1/2"]
+[DepthOld "5"]
+[DepthNew "5"]
+[ForcedFirst "e4"]
+[Seed "2338"]
+[OpeningLineLen "56"]
+[PlyCount "92"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Bxc6 dxc6 5. O-O Bd6 6. d4 exd4 7. Qxd4 Be6 8. Qxg7 f5 9. Qxh8 fxe4 10. Ng5 Bxh2+ 11. Kxh2 Qd6+ 12. Kg1 e3 13. Bxe3 Bd5 14. c4 O-O-O 15. Qd4 Bxg2 16. Qxd6 Rxd6 17. Kxg2 Rg6 18. Kf3 h6 19. Ne4 Ne7 20. Nbc3 Nf5 21. Rh1 Rg3+ 22. Nxg3 Nh4+ 23. Rxh4 b5 24. Rd1 b4 25. Na4 b3 26. axb3 Kb7 27. Rd8 c5 28. Bg5 c6 29. Rf4 h5 30. Rd7+ Kb8 31. Rh4 Kc8 32. Nb6+ Kb8 33. Rd8+ Kb7 34. Rd7+ Kxb6 35. Rh7 a5 36. Rd7 Ka6 37. Rd8 Ka7 38. Rd3 a4 39. bxa4 Kb8 40. Rd7 Kc8 41. Rh7 Kb8 42. Bf6 Kc8 43. b3 Kb8 44. Be5+ Kc8 45. Bf6 Kb8 46. Be5+ Kc8 1/2-1/2
+
+================================================================================
+
+[Event "NEW vs OLD"]
+[Site "Local"]
+[Date "2026.02.17"]
+[Round "2"]
+[White "OLD(d=5)"]
+[Black "NEW(d=5)"]
+[Result "0-1"]
+[DepthOld "5"]
+[DepthNew "5"]
+[ForcedFirst "e4"]
+[Seed "3337"]
+[OpeningLineLen "77"]
+[PlyCount "74"]
+
+1. e4 e6 2. Nc3 d5 3. d4 Bb4 4. Qg4 Nf6 5. Qe2 Nxe4 6. h4 Nxc3 7. Qg4 Ne4+ 8. c3 Bf8 9. g3 Nd7 10. h5 h6 11. Bd3 Nef6 12. Qe2 c5 13. Bf4 cxd4 14. Bg6 Be7 15. Qxe6 O-O 16. Qe2 dxc3 17. Rd1 cxb2 18. Kf1 Ba3 19. Nf3 Nc5 20. Ng5 hxg5 21. h6 Bg4 22. Qxg4 Nxg4 23. Bxg5 Qxg5 24. Bh7+ Kxh7 25. hxg7+ Kxg7 26. Kg2 Qf5 27. Rd3 Qxf2+ 28. Kh3 Rh8+ 29. Kxg4 Rxh1 30. Rxa3 b1=Q 31. Ra4 f5+ 32. Kg5 Qc1+ 33. Rf4 Rf8 34. a4 Rf7 35. a5 d4 36. a6 bxa6 37. g4 Ne6# 0-1
+
+================================================================================
+
+[Event "NEW vs OLD"]
+[Site "Local"]
+[Date "2026.02.17"]
+[Round "3"]
+[White "NEW(d=5)"]
+[Black "OLD(d=5)"]
+[Result "1/2-1/2"]
+[DepthOld "5"]
+[DepthNew "5"]
+[ForcedFirst "e4"]
+[Seed "4338"]
+[OpeningLineLen "77"]
+[PlyCount "92"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Bxc6 dxc6 5. O-O Bd6 6. d4 exd4 7. Qxd4 Be6 8. Qxg7 f5 9. Qxh8 fxe4 10. Ng5 Bxh2+ 11. Kxh2 Qd6+ 12. Kg1 e3 13. Bxe3 Bd5 14. c4 O-O-O 15. Qd4 Bxg2 16. Qxd6 Rxd6 17. Kxg2 Rg6 18. Kf3 h6 19. Ne4 Ne7 20. Nbc3 Nf5 21. Rh1 Rg3+ 22. Nxg3 Nh4+ 23. Rxh4 b5 24. Rd1 b4 25. Na4 b3 26. axb3 Kb7 27. Rd8 c5 28. Bg5 c6 29. Rf4 h5 30. Rd7+ Kb8 31. Rh4 Kc8 32. Nb6+ Kb8 33. Rd8+ Kb7 34. Rd7+ Kxb6 35. Rh7 a5 36. Rd7 Ka6 37. Rd8 Ka7 38. Rd3 a4 39. bxa4 Kb8 40. Rd7 Kc8 41. Rh7 Kb8 42. Bf6 Kc8 43. b3 Kb8 44. Be5+ Kc8 45. Bf6 Kb8 46. Be5+ Kc8 1/2-1/2
+
+================================================================================
+
+[Event "NEW vs OLD"]
+[Site "Local"]
+[Date "2026.02.17"]
+[Round "4"]
+[White "OLD(d=5)"]
+[Black "NEW(d=5)"]
+[Result "0-1"]
+[DepthOld "5"]
+[DepthNew "5"]
+[ForcedFirst "e4"]
+[Seed "5337"]
+[OpeningLineLen "83"]
+[PlyCount "74"]
+
+1. e4 e6 2. Nc3 d5 3. d4 Bb4 4. Qg4 Nf6 5. Qe2 Nxe4 6. h4 Nxc3 7. Qg4 Ne4+ 8. c3 Bf8 9. g3 Nd7 10. h5 h6 11. Bd3 Nef6 12. Qe2 c5 13. Bf4 cxd4 14. Bg6 Be7 15. Qxe6 O-O 16. Qe2 dxc3 17. Rd1 cxb2 18. Kf1 Ba3 19. Nf3 Nc5 20. Ng5 hxg5 21. h6 Bg4 22. Qxg4 Nxg4 23. Bxg5 Qxg5 24. Bh7+ Kxh7 25. hxg7+ Kxg7 26. Kg2 Qf5 27. Rd3 Qxf2+ 28. Kh3 Rh8+ 29. Kxg4 Rxh1 30. Rxa3 b1=Q 31. Ra4 f5+ 32. Kg5 Qc1+ 33. Rf4 Rf8 34. a4 Rf7 35. a5 d4 36. a6 bxa6 37. g4 Ne6# 0-1
+
+================================================================================
+
+[Event "NEW vs OLD"]
+[Site "Local"]
+[Date "2026.02.17"]
+[Round "5"]
+[White "NEW(d=5)"]
+[Black "OLD(d=5)"]
+[Result "1/2-1/2"]
+[DepthOld "5"]
+[DepthNew "5"]
+[ForcedFirst "e4"]
+[Seed "6338"]
+[OpeningLineLen "61"]
+[PlyCount "92"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Bxc6 dxc6 5. O-O Bd6 6. d4 exd4 7. Qxd4 Be6 8. Qxg7 f5 9. Qxh8 fxe4 10. Ng5 Bxh2+ 11. Kxh2 Qd6+ 12. Kg1 e3 13. Bxe3 Bd5 14. c4 O-O-O 15. Qd4 Bxg2 16. Qxd6 Rxd6 17. Kxg2 Rg6 18. Kf3 h6 19. Ne4 Ne7 20. Nbc3 Nf5 21. Rh1 Rg3+ 22. Nxg3 Nh4+ 23. Rxh4 b5 24. Rd1 b4 25. Na4 b3 26. axb3 Kb7 27. Rd8 c5 28. Bg5 c6 29. Rf4 h5 30. Rd7+ Kb8 31. Rh4 Kc8 32. Nb6+ Kb8 33. Rd8+ Kb7 34. Rd7+ Kxb6 35. Rh7 a5 36. Rd7 Ka6 37. Rd8 Ka7 38. Rd3 a4 39. bxa4 Kb8 40. Rd7 Kc8 41. Rh7 Kb8 42. Bf6 Kc8 43. b3 Kb8 44. Be5+ Kc8 45. Bf6 Kb8 46. Be5+ Kc8 1/2-1/2
+
+================================================================================
+

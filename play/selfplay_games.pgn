@@ -1,0 +1,25 @@
+[Event "Selfplay"]
+[Site "Local"]
+[Date "2026.02.14"]
+[Round "1"]
+[White "NN(depth=5)"]
+[Black "NN(depth=5)"]
+[Result "1/2-1/2"]
+[DepthWhite "5"]
+[DepthBlack "5"]
+[PlyCount "140"]
+
+1. e4 c6 2. d4 d5 3. Nc3 dxe4 4. Nxe4 Bf5 5. Ng3 Bg6 6. h4 h6 7. h5 Bh7 8. Nf3 Nd7 9. Bd3 Bxd3 10. Qxd3 e6 11. Bd2 Ngf6 12. O-O-O Qc7 13. Ne4 O-O-O 14. g3 Nxe4 15. Qxe4 Nf6 16. Qe2 Bd6 17. c4 c5 18. Bc3 cxd4 19. Nxd4 a6 20. Kb1 Kb8 21. Nb3 Qc6 22. Na5 Qb6 23. Ka1 Be7 24. Qf3 Ka8 25. b4 e5 26. c5 Qc7 27. Nc4 e4 28. Qe2 Rxd1+ 29. Rxd1 Rd8 30. Be5 Rxd1+ 31. Qxd1 Qd8 32. Nd6 Qd7 33. Kb1 Ng4 34. Bxg7 f6 35. Qd4 Bd8 36. Bf8 Qh7 37. Qxe4 Qxe4+ 38. Nxe4 f5 39. Nd6 Nxf2 40. Nxf5 Nd3 41. Bxh6 Nxb4 42. Bg7 Bg5 43. h6 Bxh6 44. Bxh6 Nd3 45. Be3 Ne5 46. Nd6 Ng6 47. Kc2 Kb8 48. Kd3 Kc7 49. Ke4 Kd7 50. Nf7 Ke6 51. Nd8+ Kd7 52. Nxb7 Kc6 53. Nd6 Nf8 54. Nc4 Ne6 55. Ne5+ Kc7 56. Kd5 Nd8 57. c6 a5 58. Bg5 Nb7 59. cxb7 a4 60. Nd3 Kxb7 61. Be7 Kc8 62. Bb4 Kd8 63. Nc1 Kd7 64. a3 Kc8 65. Kc6 Kb8 66. g4 Kc8 67. Be7 Kb8 68. Bd6+ Kc8 69. Be7 Kb8 70. Bd6+ Kc8 1/2-1/2
+
+[Event "Selfplay"]
+[Site "Local"]
+[Date "2026.02.14"]
+[Round "2"]
+[White "NN(depth=5)"]
+[Black "NN(depth=5)"]
+[Result "1/2-1/2"]
+[DepthWhite "5"]
+[DepthBlack "5"]
+[PlyCount "151"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Nf6 4. e5 Nfd7 5. Nf3 c5 6. Nb5 a6 7. Bg5 Qb6 8. dxc5 Nxc5 9. Nbd4 Ne4 10. Be3 Qxb2 11. c3 Nc6 12. Rc1 Nxc3 13. Qc2 Qxc2 14. Rxc2 Ne4 15. Nxc6 bxc6 16. Rxc6 Bb4+ 17. Kd1 Bd7 18. Rxa6 Nc3+ 19. Kc2 O-O 20. a3 Ba4+ 21. Kd2 Ne4+ 22. Kc1 Bxa3+ 23. Kb1 Rfb8+ 24. Ka1 Rb1+ 25. Kxb1 Nc3+ 26. Ka1 Rb8 27. Rb6 Rxb6 28. Bxb6 Bc2 29. Nd4 Bg6 30. Nc6 h6 31. Bd4 Ne4 32. f3 Nd2 33. Bc3 Nc4 34. Bxc4 dxc4 35. Rd1 Kh7 36. Ka2 Bc5 37. Kb2 Bd3 38. Bd4 Be2 39. Re1 c3+ 40. Kxc3 Bb5 41. Bxc5 Bxc6 42. Be3 h5 43. Bf2 g5 44. Kd4 Bd5 45. Ra1 Kg8 46. h4 gxh4 47. Bxh4 Kg7 48. Ra7 Bb3 49. Bf6+ Kg6 50. Kc5 Bd5 51. Kd6 Kf5 52. g4+ hxg4 53. fxg4+ Kxg4 54. Rxf7 Kf5 55. Bh4+ Kg6 56. Rf6+ Kg7 57. Bg5 Kh7 58. Rxe6 Bxe6 59. Kxe6 Kg7 60. Kd5 Kg6 61. Bd8 Kf5 62. Bh4 Kg4 63. e6 Kxh4 64. e7 Kh5 65. e8=Q+ Kg4 66. Qe4+ Kg3 67. Qd4 Kf3 68. Qd2 Kg3 69. Ke4 Kh4 70. Qg2 Kh5 71. Ke3 Kh6 72. Qg8 Kh5 73. Qg7 Kh4 74. Qg8 Kh5 75. Qg7 Kh4 76. Qg8 1/2-1/2

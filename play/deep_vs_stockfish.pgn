@@ -1,0 +1,10 @@
+[Event "MyAI vs Stockfish"]
+[Site "Jupyter"]
+[Date "????.??.??"]
+[Round "1"]
+[White "MyAI"]
+[Black "Stockfish"]
+[Result "0-1"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Nf6 4. Ng5 d5 5. exd5 Na5 6. Bf1 h6 7. Nf3 e4 8. Ng1 Qxd5 9. Nc3 Qe5 10. Qe2 Nc6 11. Qb5 Bc5 12. d4 exd3+ 13. Be3 Bxe3 14. Qxe5+ Nxe5 15. fxe3 dxc2 16. Nf3 Nfg4 17. Rc1 Nxf3+ 18. gxf3 Nxe3 19. Bd3 Bf5 20. Bxf5 Nxf5 21. Rxc2 O-O-O 22. Kf2 Nd4 23. Rd2 Nf5 24. Rhd1 Rxd2+ 25. Rxd2 g6 26. Nb5 a6 27. Nc3 Rd8 28. Rc2 b6 29. Ne4 Kb7 30. Ng3 Nd4 31. Rc1 Ne6 32. Ke1 f5 33. h4 Rd3 34. Rc3 Rd5 35. Ne2 Rd8 36. Ng3 a5 37. h5 f4 38. Ne4 gxh5 39. Rc2 Nd4 40. Rc3 Nf5 41. Rc1 Rd4 42. Nc3 h4 43. Ne2 Rd3 44. Nxf4 Rxf3 45. Rb1 Rxf4 46. Ke2 h3 47. Rh1 Ng3+ 48. Ke3 Rh4 49. Ra1 h2 50. Rg1 hxg1=Q+ 51. Kd2 Qg2+ 52. Ke3 Qe2# 0-1
+
